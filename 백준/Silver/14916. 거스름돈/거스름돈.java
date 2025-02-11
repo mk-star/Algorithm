@@ -5,22 +5,14 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         int cnt = 0;
-        while(true) {
-            if(n % 5 == 0) {
-                cnt += n / 5;
-                break;
-            }
-            if((n % 5) % 2 == 0) {
-                cnt = n / 5 + (n % 5) / 2;
-                break;
-            } 
-            if ((n % 5 + 5) % 2 == 0) {
-                if(n == 1 || n == 3) break;
+        if(n % 5 == 0) cnt += n / 5;
+        if((n % 5) % 2 == 0) cnt = n / 5 + (n % 5) / 2;
+        if ((n % 5 + 5) % 2 == 0) {
+            if(n != 1 && n != 3) {
                 cnt = (n % 5 + 5) / 2 + (n / 5 - 1);
-                break;
-            } else break;
+            }
         }
-
+        
         if(cnt != 0) {
             System.out.println(cnt);
         } else {
