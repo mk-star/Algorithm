@@ -47,8 +47,10 @@ public class Main {
             graph.get(v).add(u);
         }
         for(int i = 1; i <= N; i++) {
-            if(!visited[i]) count++;
-            dfs(i);
+            if(!visited[i]) {
+                dfs(i);
+                count++;
+            }
         }
         System.out.println(count);
     }
