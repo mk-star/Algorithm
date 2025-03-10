@@ -9,11 +9,11 @@ public class Main {
     public static void dfs(int p1, int p2, int count) {
         visited[p1] = true;
 
+        if(p1 == p2) {
+            result = count;
+        }
+
         for(int y : graph.get(p1)) {
-            if(p2 == y) {
-                result = count + 1;
-                return;
-            }
             if(!visited[y]) {
                 dfs(y, p2, count + 1);
             }
@@ -39,10 +39,8 @@ public class Main {
 
         for(int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
-
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-
             graph.get(x).add(y);
             graph.get(y).add(x);
         }
