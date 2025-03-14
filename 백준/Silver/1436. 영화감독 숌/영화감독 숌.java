@@ -5,11 +5,11 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        Integer num = 666;
+        int num = 666;
         int cnt = 0;
         while(true) {
-            if(num.toString().contains("666")) cnt++;
-            
+            if(String.valueOf(num).contains("666")) cnt++;
+
             if(cnt == N) {
                 System.out.println(num);
                 break;
