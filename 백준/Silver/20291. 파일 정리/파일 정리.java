@@ -3,9 +3,6 @@ import java.util.*;
 // 확장자 별로 정리, 같은 몇개인지
 // 확장자를 사전 순으로 정렬
 public class Main {
-    static void dd() {
-        
-    }
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
