@@ -8,18 +8,16 @@ public class Main {
     static int[][] ingre;
     static int N;
 
-    static void solution(int i, int S, int B, boolean flag) {
-        if(i == N) return;
-
-        if(flag) {
-            S *= ingre[i][0];
-            B += ingre[i][1];
+    static void solution(int i, int S, int B) {
+        if(i == N) {
+            if(S != 1 && B != 0) {
+                min = Math.min(min, Math.abs(S - B));
+            }
+            return;
         }
 
-        min = Math.min(min, Math.abs(S - B));
-
-        solution(i + 1, S, B, true);
-        solution(i + 1, S, B, false);
+        solution(i + 1, S * ingre[i][0], B + ingre[i][1]);
+        solution(i + 1, S, B);
     }
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,9 +32,7 @@ public class Main {
             ingre[i][1] = Integer.parseInt(st.nextToken()); // 쓴맛
         }
 
-        for(int i = 0; i < N; i++) {
-            solution(i, 1, 0, true);
-        }
+        solution(0, 1, 0);
         System.out.println(min);
     }
 }
