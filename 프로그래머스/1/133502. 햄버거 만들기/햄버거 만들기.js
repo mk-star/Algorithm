@@ -1,6 +1,4 @@
 function solution(ingredient) {
-    const order = [1, 2, 3, 1];
-    const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
     let cnt = 0;
     
     for (let i = 0; i < ingredient.length; i++) {
@@ -15,4 +13,3 @@ function solution(ingredient) {
     }
     return cnt;
 }
-//빵 -> 야채 -> 고기 -> 빵
