@@ -1,12 +1,11 @@
 // 3 3 2 2 1 1 1
 function solution(k, m, score) {
     let result = 0;
-    score.sort((a, b) => b - a);
+    const arr = score.sort((a, b) => b - a)
+                    .filter((_, index) => (index + 1) % m == 0);
     
-    let i = m - 1;
-    while(i < score.length) {
-        result += score[i] * m;
-        i += m;
+    for(let i = 0; i < arr.length; i++) {
+        result += arr[i] * m;
     }
     return result;
 }
