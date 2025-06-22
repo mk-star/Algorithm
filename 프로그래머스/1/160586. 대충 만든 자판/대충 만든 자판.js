@@ -1,23 +1,14 @@
 function solution(keymap, targets) {
-    let result = [];
-    
-    for(let i = 0; i < targets.length; i++) {
-        let cnt = 0;
-        targets[i].split("").some((x) => {
-            let minIndex = 999;
-            for(let j = 0; j < keymap.length; j++) {
-                keymap[j].split("").map((y, index) => {
-                    if(x === y) minIndex = Math.min(minIndex, index + 1);
-                })
-            }
-            if(minIndex === 999) {
-                result.push(-1);
-                cnt = 0;
-                return true;
-            }
-            cnt += minIndex;
-        })
-        if(cnt !== 0) result.push(cnt);
+    const result = [];
+    const map = {}
+
+    for(const items of keymap) {
+        items.split('').map((item, index) => map[item] = map[item] < index + 1 ? map[item] : index + 1)
     }
+    
+    for(const items of targets) {
+        result.push(items.split('').reduce((acc, cur) => acc += map[cur], 0) || -1)
+    }
+    
     return result;
 }
