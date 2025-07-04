@@ -2,8 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int L;
-	static int C;
+	static int L, C;
 	static String[] arr;
 
 	static boolean isValidPassword(String password) {
@@ -29,8 +28,6 @@ public class Main {
 			}
 			return;
 		}
-
-		if(n >= C) return;
 		
 		for(int i = n; i < C; i++) {
 			solution(i + 1, count + 1, password + arr[i]);
