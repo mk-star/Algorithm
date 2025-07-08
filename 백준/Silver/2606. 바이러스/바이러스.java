@@ -8,16 +8,15 @@ public class Main {
 
 	static void dfs(int num) {
 		visited[num] = true;
+		cnt++;
 		
 		for(int i = 2; i < arr.length; i++) {
 			if(!visited[i] && arr[num][i] == 1) {
-				cnt++;
-				visited[i] = true;
 				dfs(i);
 			}
 		}
 	}
-    
+
 	public static void main(String[] args) throws Exception {
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -31,12 +30,12 @@ public class Main {
 
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
-			
+
 			arr[a][b] = 1;
 			arr[b][a] = 1;
 		}
 
 		dfs(1);
-		System.out.println(cnt);
+		System.out.println(cnt - 1);
 	}
 }
