@@ -10,7 +10,7 @@ public class Main {
 
 	static void bfs(int x, int y) {
 		Queue<int[]> q = new LinkedList<>();
-		q.offer(new int[]{x, y, 0});
+		q.offer(new int[]{x, y});
 		visited[x][y] = true;
 
 		while(!q.isEmpty()) {
@@ -18,13 +18,12 @@ public class Main {
 			for(int i = 0; i < 4; i++) {
 				int xi = dx[i] + loc[0];
 				int yi = dy[i] + loc[1];
-				int cnt = loc[2];
 				
 				if(xi >= 0 && yi >= 0 && xi < n && yi < m) {
 					if(!visited[xi][yi] && map[xi][yi] == 1) {
 						visited[xi][yi] = true;
-						result[xi][yi] = cnt + 1;
-						q.offer(new int[]{xi, yi, result[xi][yi]});
+						result[xi][yi] = result[loc[0]][loc[1]] + 1;
+						q.offer(new int[]{xi, yi});
 					}
 				}
 			}
