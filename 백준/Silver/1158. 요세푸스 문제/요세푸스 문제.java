@@ -1,27 +1,27 @@
-
 import java.util.*;
+import java.io.*;
+
 public class Main {
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int K = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        List<Integer> arr = new ArrayList<>();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
 
-        for(int i = 1; i <= N; i++)
-            arr.add(i);
+        LinkedList<Integer> list = new LinkedList<>();
+        for(int i = 1; i <= N; i++) list.add(i);
 
-        StringBuilder result = new StringBuilder();
-        result.append("<");
-       
+        StringBuilder sb = new StringBuilder();
+        sb.append("<");
+
         int index = 0;
-        while(!arr.isEmpty()) {
-            index = (index + K - 1) % arr.size();
-            result.append(arr.remove(index));
-            if(arr.size() != 0)
-                result.append(", ");
+        while(list.size() != 1) {
+            index = (index + (K - 1)) % list.size();
+            sb.append(list.remove(index)).append(", ");
         }
-        result.append(">");
-        System.out.println(result);
+        sb.append(list.remove()).append(">");
+
+        System.out.println(sb);
     }
 }
