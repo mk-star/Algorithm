@@ -34,11 +34,11 @@ public class Main {
         for(int i = 0; i < R; i++) {
             int num = Integer.parseInt(st.nextToken());
             boolean isExists = false;
-            Queue<Student> q = new PriorityQueue<>(pq);
+            PriorityQueue<Student> tmp = new PriorityQueue<>(pq);
 
             // 이미 있다면
-            while(!q.isEmpty()) {
-                Student s = q.poll();
+            while(!tmp.isEmpty()) {
+                Student s = tmp.poll();
                 if(s.studentNo == num) {
                     pq.remove(s);
                     s.count++;
