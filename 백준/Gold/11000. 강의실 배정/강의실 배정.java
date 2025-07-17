@@ -16,15 +16,7 @@ public class Main {
             arr[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(arr, new Comparator<int[]>() {
-            public int compare(int[] a, int[] b) {
-                if(a[0] == b[0]) {
-                    return b[1]  - a[1];
-                } else {
-                    return a[0] - b[0];
-                }
-            }
-        });
+        Arrays.sort(arr, (a, b) -> a[0] - b[0]);
 
         PriorityQueue<Integer> pq  = new PriorityQueue<>(); // 끝나는 시간 순으로 오름차순
         pq.add(arr[0][1]);
