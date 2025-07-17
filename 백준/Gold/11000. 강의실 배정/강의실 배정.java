@@ -1,40 +1,39 @@
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        int n = Integer.parseInt(br.readLine());
-        int[][] arr = new int[n][2];
 
-        for(int i = 0; i < n; i++) {
+        int N = Integer.parseInt(br.readLine());
+       
+        int[][] arr = new int[N][2];
+
+        for(int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
+
             arr[i][0] = Integer.parseInt(st.nextToken());
             arr[i][1] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr, new Comparator<int[]>() {
-			public int compare(int[] o1, int[] o2) {
-				if(o1[0] == o2[0]) return o1[1] - o2[1];
-				return o1[0] - o2[0];
-			}
-		});
+            public int compare(int[] a, int[] b) {
+                if(a[0] == b[0]) {
+                    return b[1]  - a[1];
+                } else {
+                    return a[0] - b[0];
+                }
+            }
+        });
 
-        PriorityQueue<Integer> pq  = new PriorityQueue<>();
+        PriorityQueue<Integer> pq  = new PriorityQueue<>(); // 끝나는 시간 순으로 오름차순
         pq.add(arr[0][1]);
-
-        for(int i = 1; i < n; i++) {
-			if(pq.peek() <= arr[i][0]) pq.poll();
-			
-			pq.add(arr[i][1]);
-		}
-		
-		System.out.println(pq.size());
+        for(int i = 1; i < N; i++) {
+            if(arr[i][0] >= pq.peek()) { // 가장 빨리 끝나는 강의가 이번 강의 시작 전에 끝났으면 제거.
+                pq.poll(); 
+            }
+            pq.offer(arr[i][1]);
+        }
+        System.out.println(pq.size());
     }
 }
