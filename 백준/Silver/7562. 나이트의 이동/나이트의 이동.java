@@ -1,6 +1,15 @@
 import java.util.*;
 import java.io.*;
 
+// x - 2 y + 1
+// x - 2 y - 1
+// x - 1 y + 2
+// x - 1 y - 2
+// x + 1 y + 2
+// x + 1 y - 2
+// x + 2 y + 1
+// x + 2 y - 1
+
 public class Main {
     static int[][] arr;
     static boolean[][] visited;
@@ -10,25 +19,21 @@ public class Main {
     static int[] dy = {1, -1, 2, -2, 2, -2, 1, -1};
 
     static int bfs(int i, int j) {
-        if(i == targetX && j == targetY) {
-            return 0;
-        }
-
         Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[] {i, j, 1});
+        queue.offer(new int[] {i, j, 0});
         visited[i][j] = true;
 
         while(!queue.isEmpty()) {
             int[] tmp = queue.poll();
+   
+            if(tmp[0] == targetX && tmp[1] == targetY) {
+                return tmp[2];
+            }
 
             for(int t = 0; t < 8; t++) {
                 int x = tmp[0] + dx[t];
                 int y = tmp[1] + dy[t];
                 int cnt = tmp[2];
-
-                if(x == targetX && y == targetY) {
-                    return cnt;
-                }
 
                 if(x >= 0 && x < l && y >= 0 && y < l) {
                     if(!visited[x][y]) {
@@ -40,6 +45,7 @@ public class Main {
         }
         return -1;
     }
+    
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
