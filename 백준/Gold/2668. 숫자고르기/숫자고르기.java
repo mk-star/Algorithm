@@ -3,29 +3,35 @@ import java.io.*;
 
 public class Main {
     static int[] arr;
-    static int N;
+    static boolean[] visited;
+    static ArrayList<Integer> list;
 
-    static boolean solution(int i, int cnt, int num) {
-        if(cnt >= N) return false;
+    static void dfs(int start, int target) {
+        if(!visited[arr[start]]) {
+            visited[arr[start]] = true;
+            dfs(arr[start], target);
+            visited[arr[start]] = false;
+        }
 
-        if(arr[i] == num) return true;
-            
-        return solution(arr[i], cnt + 1, num);
+        if(arr[start] == target) list.add(target);
     }
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        N = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
         arr = new int[N + 1];
-        List<Integer> list = new ArrayList<>();
+        visited = new boolean[N + 1];
+        list = new ArrayList<>();
 
         for(int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
         for(int i = 1; i <= N; i++) {
-            if(solution(i, 0, i)) list.add(i);
+            visited[i] = true;
+            dfs(i, i);
+            visited[i] = false;
         }
 
         Collections.sort(list);
