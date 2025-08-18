@@ -39,7 +39,7 @@ public class Main {
 			if(b < 0) continue;
 			if(time <= min) {
 				min = time;
-				height = Math.max(height, h);
+				height = h;
 			}
 		}
 		System.out.println(min + " " + height);
