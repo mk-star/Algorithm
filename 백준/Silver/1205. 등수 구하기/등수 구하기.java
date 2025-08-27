@@ -11,31 +11,27 @@ public class Main {
         int score = Integer.parseInt(st.nextToken());
         int P = Integer.parseInt(st.nextToken());
 
-        if(N == 0) {
-            if(P >= 1) System.out.println(1);
-            else System.out.println(-1);
-            return;
+        if(N != 0) {
+            st = new StringTokenizer(br.readLine());
         }
 
-        Integer[] arr =  new Integer[N];
-        st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < N; i++) {
+        int[] arr =  new int[N + 1];
+        for(int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(arr, (a, b) -> b - a);
-
-        int rank = 1;
-        for(int i = 0; i < N; i++) {
-            if(score == arr[i]) {
-                if(P <= i + 1) rank = -1;
-                continue;
+        int rank = N + 1;
+        for(int i = N; i >= 1; i--) {
+            if(score < arr[i]) break;
+            else if(score == arr[i]) {
+                rank = i;
+                if(P <= i) {
+                    rank = -1;
+                    break;
+                }
+            } else {
+                rank = i;
             }
-            if(score > arr[i]) {
-                if(P < i + 1) rank = -1;
-                break;
-            }
-            rank++;
         }
         if(rank > P) rank = -1;
         System.out.println(rank);
