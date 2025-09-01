@@ -1,81 +1,79 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Main {
-    static void swap(char[][] b, int i, int j, int x, int y) {
-        char temp = b[i][j];
-        b[i][j] = b[x][y];
-        b[x][y] = temp; 
-    }
+    static int N;
+    static int max = Integer.MIN_VALUE;
+    static char[][] candy;
 
-    static int search(char[][] b, int n){
-        int count = 0;
-        int max = Integer.MIN_VALUE;
-
-        //열
-        for(int i = 0; i < n; i++) {
-            char word = b[i][0];
-            count = 0;
-            for(int j = 0; j < n; j++) {
-                if(word != b[i][j]) {
-                    max = max < count ? count : max;
-                    count = 0;
-                    word = b[i][j];
-                }
-                count++;
+    static void getLongestPart() {
+        // 행
+        for(int i = 0; i < N; i++) {
+            int cnt = 0;
+            char c = candy[i][0];
+            for(int j = 0; j < N; j++) {
+                if(c != candy[i][j]) {
+                    max = Math.max(max, cnt);
+                    c = candy[i][j];
+                    cnt = 1;
+                } else cnt++;
             }
-            max = max < count ? count : max;
+            max = Math.max(max, cnt);
         }
 
-        //행
-        for(int i = 0; i < n; i++) {
-            char word = b[0][i];
-            count = 0;
-            for(int j = 0; j < n; j++) {
-                if(word != b[j][i]) {
-                    max = max < count ? count : max;
-                    count = 0;
-                    word = b[j][i];
-                }
-                count++;
+        // 열
+        for(int i = 0; i < N; i++) {
+            int cnt = 0;
+            char c = candy[0][i];
+            for(int j = 0; j < N; j++) {
+                if(c != candy[j][i]) {
+                    max = Math.max(max, cnt);
+                    c = candy[j][i];
+                    cnt = 1;
+                } else cnt++;
             }
-            max = max < count ? count : max;
+            max = Math.max(max, cnt);
         }
-        return max;
     }
+
+    static void swap(int i, int j, int x, int y) {
+        char temp = candy[i][j];
+        candy[i][j] = candy[x][y];
+        candy[x][y] = temp;
+    }
+
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
-        char[][] board = new char[n][n];
+        N = Integer.parseInt(br.readLine());
+        candy = new char[N][N];
 
-        for(int i = 0; i < n; i++) {
-            String s = br.readLine();
-            for(int j = 0; j < n; j++) {
-                board[i][j] = s.charAt(j);
+        for(int i = 0; i < N; i++) {
+            String str = br.readLine();
+            for(int j = 0; j < N; j++) {
+                candy[i][j] = str.charAt(j);
             }
         }
 
-        int max = search(board, n);
-        int count = 0;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(j != n - 1 && board[i][j] != board[i][j + 1]) {
-                    swap(board, i, j, i, j + 1);
-                    count = search(board, n);
-                    swap(board, i, j, i, j + 1);
-                }
+        int[] dx = { 1, 0 };
+        int[] dy = { 0, 1 };
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                for(int t = 0; t < 2; t++) {
+                    int x = i + dx[t];
+                    int y = j + dy[t];
 
-                max = max < count ? count : max;
-                    
-                if(i != n - 1 && board[i][j] != board[i + 1][j]) {
-                    swap(board, i, j, i + 1, j);
-                    count = search(board, n);
-                    swap(board, i, j, i + 1, j);
+                    if(x < N && y < N) {
+                        if(candy[i][j] != candy[x][y]) {
+                            swap(i, j, x, y);
+                            getLongestPart();
+                            swap(i, j, x, y);
+                        }
+
+                    }
                 }
-                max = max < count ? count : max;
             }
         }
+
         System.out.println(max);
-    }
+	}
 }
