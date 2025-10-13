@@ -27,12 +27,15 @@ public class Main {
 
         pq.offer(new Node(start, 0));
         dist[start] = 0;
-        visited[start] = true;
 
         while(!pq.isEmpty()) {
             Node cur = pq.poll();
+            
+            if(visited[cur.index]) continue;
+            visited[cur.index] = true;
+            
             for(Node n : graph.get(cur.index)) {
-                if(!visited[n.index] && dist[n.index] > dist[cur.index] + n.weight) {
+                if(dist[n.index] > dist[cur.index] + n.weight) {
                     // weight를 갱신
                     dist[n.index] = dist[cur.index] + n.weight;
                     pq.offer(new Node(n.index, dist[n.index]));
