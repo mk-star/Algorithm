@@ -4,55 +4,25 @@ import java.util.*;
 // 3번 수포자: 33 -> 11 -> 22 -> 44 -> 55 반복
 class Solution {
     public int[] solution(int[] answers) {    
-        int len = answers.length;
-        int[] supoja1 = new int[len];
-        int[] supoja2 = new int[len];
-        int[] supoja3 = new int[len];
         
-        // 1번 수포자가 찍는 방식
-        int num = 1;
-        for(int i = 0; i < answers.length; i++) {
-            supoja1[i] = num++;
-            if(num == 6) num = 1;
-        }
-        
-        // 2번 수포자가 찍는 방식        
-        num = 1;
-        for(int i = 0; i < answers.length; i++) {
-            if(i % 2 == 0) supoja2[i] = 2;
-            else supoja2[i] = num++;
-            if(num == 6) num = 1;
-            if(num == 2) num++;
-        }
-        
-        // 3번 수포자가 찍는 방식
-        int[] temp = { 3, 1, 2, 4, 5 };
-        int idx = 0;
-        for(int i = 0; i < answers.length; i++) {
-            supoja3[i] = temp[idx];
-            if(i % 2 == 1) idx++;
-            if(idx == 5) idx = 0;
-        }
-        
-        for(int n : supoja3) {
-            System.out.print(n);
-        }
+        int[] supoja1 = { 1, 2, 3, 4, 5 };
+        int[] supoja2 = { 2, 1, 2, 3, 2, 4, 2, 5 }; 
+        int[] supoja3 = { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 };
+
         // 문제를 채점한다.
-        int[] cnt = new int[3];
+        int[] score = new int[3];
         for(int i = 0; i < answers.length; i++) {
-            if(supoja1[i] == answers[i]) cnt[0]++;
-            if(supoja2[i] == answers[i]) cnt[1]++;
-            if(supoja3[i] == answers[i]) cnt[2]++;   
+            if(supoja1[i % 5] == answers[i]) score[0]++;
+            if(supoja2[i % 8] == answers[i]) score[1]++;
+            if(supoja3[i % 10] == answers[i]) score[2]++;   
         }
         
         // 가장 높은 점수를 받은 사람이 여럿일 경우 배열로 반환
-        List<Integer> list = new ArrayList<>();
+        int max = Math.max(score[0], Math.max(score[1], score[2]));
         
-        int max = cnt[0]; 
-        max = Math.max(max, Math.max(cnt[1], cnt[2]));
-             
+        List<Integer> list = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
-            if(cnt[i] == max) {
+            if(score[i] == max) {
                 list.add(i + 1);
             }
         }
