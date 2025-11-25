@@ -11,33 +11,14 @@ class Main {
         int jimin = Integer.parseInt(st.nextToken());
         int hansu = Integer.parseInt(st.nextToken());
 
-        List<Integer> list = new ArrayList<>();
-
-        for(int i = 1; i <= N; i++) {
-            list.add(i);
-        }
-        
         int cnt = 0;
-        boolean isFight = false;
-        while(list.size() > 1) {
-            int len = list.size();
-            for(int i = 1; i <= len / 2; i++) {
-                if(list.get(i) == jimin || list.get(i) == hansu) {
-                    if(list.get(i) == jimin && list.get(i - 1) == hansu ||
-                        list.get(i) == hansu && list.get(i - 1) == jimin) {
-                        isFight = true;
-                        break;
-                    }
-                    list.remove(i - 1);
-                } else {
-                    list.remove(i);
-                }
-            }
+        while(jimin != hansu) {
+            jimin = (jimin + 1) / 2;
+            hansu = (hansu + 1) / 2;
 
             cnt++;
-            if(isFight) break;
         }
-        System.out.println(isFight ? cnt : -1);
+        System.out.println(cnt);
 
 	}
 }
