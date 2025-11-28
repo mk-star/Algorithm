@@ -3,50 +3,46 @@ import java.util.*;
 class Solution {
     static boolean[] visited;
     static int[] arr;
-    static Set<Integer> set;
-
+    static int cnt = 0;
+    static Queue<Integer> queue = new LinkedList<>();
+    
     static boolean isPrime(int num) {
-        if(num < 2) return false;
-        
         for(int i = 2; i < num; i++) {
             if(num % i == 0) return false;
         }
         return true;
     }
     
-    static void dfs(int depth, int num, int len) {
-        if(depth == len) {
-            set.add(num);
-            return;
+    static void dfs(int depth) {
+        if(depth >= 1) {
+            int num = 0;
+            while(!queue.isEmpty()) {
+                num *= 10;
+                num += queue.poll();
+            }
+            System.out.println(num);
+            if(isPrime(num)) cnt++;
         }
         
         for(int i = 0; i < arr.length; i++) {
             if(!visited[i]) {
-                visited[i] = true; 
-                dfs(depth + 1, num * 10 + arr[i], len);
+                visited[i] = true;
+                queue.offer(arr[i]);
+                dfs(depth + 1);
                 visited[i] = false;
-            }
+            }    
         }
     }
     
     public int solution(String numbers) {
-        int len = numbers.length();
-        arr = new int[len];
-        visited = new boolean[len];
-        set = new HashSet<>();
+        arr = new int[numbers.length()];
+        visited = new boolean[numbers.length()];
         
-        for(int i = 0; i < len; i++) {
+        for(int i = 0; i < numbers.length(); i++) {
             arr[i] = numbers.charAt(i) - '0';
         }
         
-        for(int i = 1; i <= len; i++) {
-            dfs(0, 0, i);
-        }
-        
-        int cnt = 0;
-        for(int num : set) {
-            if(isPrime(num)) cnt++;
-        }
+        dfs(0);
         
         return cnt;
     }
