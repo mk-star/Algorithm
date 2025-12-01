@@ -2,47 +2,44 @@ import java.util.*;
 
 class Solution {
     static boolean[] visited;
-    static int[] arr;
-    static int cnt = 0;
-    static Queue<Integer> queue = new LinkedList<>();
-    
+    static Set<Integer> set;
+
     static boolean isPrime(int num) {
+        if(num < 2) return false;
+        
         for(int i = 2; i < num; i++) {
             if(num % i == 0) return false;
         }
         return true;
     }
     
-    static void dfs(int depth) {
-        if(depth >= 1) {
-            int num = 0;
-            while(!queue.isEmpty()) {
-                num *= 10;
-                num += queue.poll();
-            }
-            System.out.println(num);
-            if(isPrime(num)) cnt++;
+    static void permutation(int depth, int r, int num, String numbers) {
+        if(depth == r) {
+            set.add(num);
+            return;
         }
         
-        for(int i = 0; i < arr.length; i++) {
+        for(int i = 0; i < numbers.length(); i++) {
             if(!visited[i]) {
-                visited[i] = true;
-                queue.offer(arr[i]);
-                dfs(depth + 1);
+                visited[i] = true; 
+                permutation(depth + 1, r, num * 10 + (numbers.charAt(i) - '0'), numbers);
                 visited[i] = false;
-            }    
+            }
         }
     }
     
     public int solution(String numbers) {
-        arr = new int[numbers.length()];
         visited = new boolean[numbers.length()];
+        set = new HashSet<>();
         
-        for(int i = 0; i < numbers.length(); i++) {
-            arr[i] = numbers.charAt(i) - '0';
+        for(int i = 1; i <= numbers.length(); i++) {
+            permutation(0, i, 0, numbers);
         }
         
-        dfs(0);
+        int cnt = 0;
+        for(int num : set) {
+            if(isPrime(num)) cnt++;
+        }
         
         return cnt;
     }
