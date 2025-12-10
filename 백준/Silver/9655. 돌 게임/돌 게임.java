@@ -1,11 +1,13 @@
 import java.io.*;
-public class Main {
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+// 홀수면 상근이가 짝수면 창영이가 이김
+
+class Main {
+	public static void main(String args[]) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
-
         if(N % 2 == 0) System.out.println("CY");
         else System.out.println("SK");
-    }
+	}
 }
